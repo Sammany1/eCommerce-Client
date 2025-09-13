@@ -9,7 +9,7 @@ import { Merchant } from '../../core/models/merchant.model';
   selector: 'app-dashboard-page',
   templateUrl: './dashboard-page.component.html',
   styleUrls: ['./dashboard-page.component.scss'],
-  imports: [MerchantListComponent, MerchantSearchComponent]
+  imports: [MerchantListComponent]
 })
 export class DashboardPageComponent implements OnInit {
   merchantService = inject(MerchantService);

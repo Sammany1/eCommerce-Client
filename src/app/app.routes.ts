@@ -12,7 +12,13 @@ export const routes: Routes = [
     {
         path: 'login',
         loadComponent: () => {
-            return import('./pages/login-page/login-page.component').then(c => c.LoginPageComponent)
+            return import('./pages/login-page/login-page.component').then(c => c.LoginPageComponent);
+        }
+    },
+    {
+        path: 'register',
+        loadComponent: () => {
+            return import('./pages/register-page/register-page/register-page.component').then(c => c.RegisterPageComponent);
         }
     },
     {
@@ -25,7 +31,7 @@ export const routes: Routes = [
     {
         path: 'dashboard',
         loadComponent: () => {
-            return import('./pages/dashboard-page/dashboard-page.component').then(c => c.DashboardPageComponent)
+            return import('./pages/dashboard-page/dashboard-page.component').then(c => c.DashboardPageComponent);
         },
         canActivate: [AuthGuard],
         // canActivateChild: [AuthGuard],

@@ -1,7 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { DEFAULT_LOGIN_RESPONSE, LoginResponse } from '../../../../core/models/loginResponse.model';
-import { LoginService } from '../../../../core/services/login/login.service';
 import { catchError, EMPTY } from 'rxjs';
 import { DEFAULT_LOGIN_REQUEST, LoginRequest } from '../../../../core/models/loginRequest.model';
 import { Router } from '@angular/router';
@@ -15,7 +14,6 @@ import { AuthService } from '../../../../core/services/auth/auth.service';
 })
 export class LoginComponent {
   private fp = inject(FormBuilder);
-  private loginService = inject(LoginService);
   private authService = inject(AuthService);
   private router = inject(Router);
   showPassword = signal(false);
@@ -37,8 +35,8 @@ export class LoginComponent {
       });
       console.log('Loggin in with:', this.loginRequest());
 
-      this.loginService
-      .getLoginResponse(this.loginRequest())
+      this.authService
+      .login(this.loginRequest())
       .pipe(
         catchError((err) =>{
           console.log(err);
@@ -46,12 +44,8 @@ export class LoginComponent {
           return EMPTY;
         })
       ).subscribe((loginResponse) => {    
-        this.loginResponse.set(loginResponse)
-        console.log('Login response:', this.loginResponse());
-        if(this.loginResponse().success){
-          this.authService.setToken(this.loginResponse().data.token);
-          this.router.navigate(['/dashboard']);
-        }
+        this.authService.setToken(loginResponse.data.token);
+        this.router.navigate(['/dashboard']);
       });
     }
     else

@@ -13,10 +13,6 @@ export class MerchantCardComponent {
 
   goToMerchantPage() {
     console.log('merchant clicked');
-    this.router.navigateByUrl(`/merchant/${this.merchant().id}`).then(success => {
-      if (!success) {
-        console.warn('navigation faild !!!');
-      }
-    });
+    this.router.navigateByUrl(`/merchant/${this.merchant().id}`);
   }
 }

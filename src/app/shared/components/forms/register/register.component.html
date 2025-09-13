@@ -1,0 +1,55 @@
+<h1>Register</h1>
+
+<form [formGroup]="registerForm" (ngSubmit)="register()" autocomplete="off">
+  <label for="username">Username</label>
+  <input id="username" formControlName="username" placeholder="Enter Username..." autocomplete="username" />
+
+  <label for="firstName">First Name</label>
+  <input id="firstName" formControlName="firstName" placeholder="Enter First Name..." autocomplete="given-name" />
+
+  <label for="lastName">Last Name</label>
+  <input id="lastName" formControlName="lastName" placeholder="Enter Last Name..." autocomplete="family-name" />
+
+  <label for="email">Email</label>
+  <input id="email" formControlName="email" placeholder="Enter Email..." autocomplete="email" />
+
+  <label for="password">Password</label>
+  <div class="password-container">
+    <input
+      id="password"
+      [type]="showPassword() ? 'text' : 'password'"
+      formControlName="password"
+      placeholder="Enter Password..."
+      autocomplete="new-password"
+    />
+    <button
+      type="button"
+      class="toggle-password"
+      (click)="togglePasswordVisibility()"
+      aria-label="Show or hide password"
+    >
+      @if (showPassword()) { hide } @else { show }
+    </button>
+  </div>
+
+  <label for="confirmPassword">Confirm Password</label>
+  <input
+    id="confirmPassword"
+    [type]="showPassword() ? 'text' : 'password'"
+    formControlName="confirmPassword"
+    placeholder="Confirm Password..."
+    autocomplete="new-password"
+  />
+
+  <label for="dateOfBirth">Date of Birth</label>
+  <input
+    id="dateOfBirth"
+    type="date"
+    formControlName="dateOfBirth"
+    placeholder="YYYY-MM-DD"
+    autocomplete="bday"
+  />
+
+  <p class="message">{{ message() }}</p>
+  <button type="submit" [disabled]="registerForm.invalid">Register</button>
+</form>
