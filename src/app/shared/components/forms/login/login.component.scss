@@ -1,0 +1,66 @@
+:host {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: fit-content;
+  gap: 1rem;
+  font-size: 1.2rem; 
+  border: 0.5rem solid #bbbb;
+  box-sizing: border-box;
+  padding: 1rem;
+}
+
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem; 
+  width: 100%;
+  max-width: 300px; 
+  > p {
+    color: #ff0000;
+  }
+}
+
+.password-container {
+  position: relative;
+  display: flex;
+}
+
+.password-container input {
+  width: 100%;
+  padding-right: 3rem; /* Make space for the button */
+}
+
+.toggle-password {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  border: none;
+  background: transparent;
+  padding: 0 1rem;
+  cursor: pointer;
+  color: #555;
+}
+
+input,
+button {
+  font-size: inherit; // Makes inputs/buttons adopt the host's font size
+  padding: 0.5rem;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+button {
+  cursor: pointer;
+  background-color: #007bff;
+  color: white;
+  border-color: #007bff;
+
+  &:disabled {
+    background-color: #ccc;
+    border-color: #ccc;
+    cursor: not-allowed;
+  }
+}

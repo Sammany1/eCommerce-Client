@@ -1,0 +1,24 @@
+<header>
+  <span routerLink="/dashboard">{{ title() }}</span>
+  <div class="header-center">
+    @if (showSearch()) {
+      <app-search/>
+    }
+  </div>
+  <nav>
+    <ul>
+      @if (showRegister()) {
+      <li routerLink="/register">Register</li>
+      }
+      @if (showLogin()) {
+      <li routerLink="/login">Login</li>
+      }
+      @if (showProfile()) {
+      <li routerLink="/profile">Profile</li>
+      }
+      @if (showDashboard()) {
+      <li routerLink="/dashboard">Dashboard</li>
+      }
+    </ul>
+  </nav>
+</header>

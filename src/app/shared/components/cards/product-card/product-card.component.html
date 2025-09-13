@@ -1,0 +1,17 @@
+<button type="button" class="product-card" tabindex="0">
+  <h2>{{ product().name }}</h2>
+  <div class="product-details">
+    <span class="product-price">{{ product().price }}</span>
+    <span
+      class="product-status"
+      [class.active]="isActive()"
+      [class.in-stock]="isInStock()"
+    >
+      @if (isInStock()) {
+        In Stock
+      } @else {
+        Out of Stock
+      }
+    </span>
+  </div>
+</button>

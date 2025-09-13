@@ -1,0 +1,8 @@
+@if (merchants().length){<ul>
+    @for (merchant of merchants(); track merchant.id ) {
+        <app-merchant-card [merchant]="merchant"/>
+    }
+</ul>}
+@else {
+    <h1>No items found</h1>
+}

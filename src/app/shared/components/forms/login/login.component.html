@@ -1,0 +1,26 @@
+<h1>Login</h1>
+
+<form [formGroup]="loginForm" (ngSubmit)="login()">
+  <label for="username">Username</label>
+  <input id="username" formControlName="username" placeholder="Enter Username..." />
+
+  <label for="password">Password</label>
+  <div class="password-container">
+    <input
+      id="password"
+      [type]="showPassword() ? 'text' : 'password'"
+      formControlName="password"
+      placeholder="Enter Password..."
+    />
+    <button
+      type="button"
+      class="toggle-password"
+      (click)="togglePasswordVisibility()"
+      aria-label="Show or hide password"
+    >
+      @if (showPassword()) { hide } @else { show }
+    </button>
+  </div>
+  <p>{{message()}}</p>
+  <button type="submit" [disabled]="loginForm.invalid">Login</button>
+</form>
