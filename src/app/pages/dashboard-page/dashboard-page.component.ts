@@ -1,6 +1,5 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { MerchantListComponent } from "../../features/merchant/pages/merchant-list/merchant-list.component";
-import { MerchantSearchComponent } from "../../features/merchant/components/merchant-search/merchant-search.component";
 import { MerchantService } from '../../core/services/merchant/merchant.service';
 import { catchError } from 'rxjs';
 import { Merchant } from '../../core/models/merchant.model';

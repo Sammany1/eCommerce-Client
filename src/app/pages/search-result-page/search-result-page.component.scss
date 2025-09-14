@@ -12,21 +12,45 @@ h1 {
   color: #222;
 }
 
-.toggle-btn,
-button[type="button"] {
-  display: inline-block;
+.result-toggle-selector {
+  display: flex;
   margin-bottom: 2rem;
-  padding: 0.5rem 1.5rem;
-  font-size: 1rem;
-  font-weight: 500;
-  background: #333;
-  color: #fff;
-  border: none;
   border-radius: 0.5rem;
-  cursor: pointer;
-  transition: 0.2s;
-  &:hover {
-    background: #444;
+  overflow: hidden;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+  border: 1px solid #1976d2;
+  width: fit-content;
+
+  button {
+    flex: 1 1 0;
+    padding: 0.75rem 2.5rem;
+    font-size: 1.1rem;
+    font-weight: 500;
+    background: #f3f6fa;
+    color: #1976d2;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    transition: 0.18s, color 0.18s;
+    border-right: 1px solid #1976d2;
+
+    &:last-child {
+      border-right: none;
+    }
+
+    &:hover,
+    &:focus-visible {
+      background: #e3f2fd;
+      color: #0d47a1;
+    }
+
+    &.active,
+    &[aria-selected="true"] {
+      background: #1976d2;
+      color: #fff;
+      font-weight: 600;
+      z-index: 1;
+    }
   }
 }
 

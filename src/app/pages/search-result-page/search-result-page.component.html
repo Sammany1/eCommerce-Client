@@ -1,7 +1,27 @@
 <h1>Query: {{searchTerm()}}</h1>
-<button type="button" (click)="toggleList()">
-  Show {{ showMerchants() ? 'Products' : 'Merchants' }}
-</button>
+
+<div class="result-toggle-selector" role="tablist" aria-label="Result type">
+  <button
+    type="button"
+    role="tab"
+    [class.active]="showMerchants()"
+    [attr.aria-selected]="showMerchants() ? 'true' : 'false'"
+    (click)="showMerchants.set(true)"
+    tabindex="0"
+  >
+    Merchants
+  </button>
+  <button
+    type="button"
+    role="tab"
+    [class.active]="!showMerchants()"
+    [attr.aria-selected]="!showMerchants() ? 'true' : 'false'"
+    (click)="showMerchants.set(false)"
+    tabindex="0"
+  >
+    Products
+  </button>
+</div>
 
 @if (showMerchants()){
     <app-merchant-list [merchants]="merchants()" />

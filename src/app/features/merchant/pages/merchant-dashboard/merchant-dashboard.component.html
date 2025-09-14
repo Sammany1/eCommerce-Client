@@ -1,9 +1,15 @@
-<div>
-  <label for="category-select">Category:</label>
-  <select id="category-select" [ngModel]="selectedCategory()" (ngModelChange)="onCategoryChange($event)">
-    @for (category of categories(); track category.id) {
-      <option [ngValue]="category">{{ category.name }}</option>
-    }
-  </select>
+<div class="category-ribbon" role="tablist" aria-label="Product categories">
+  @for (category of categories(); track category.id) {
+    <button
+      type="button"
+      role="tab"
+      [class.active]="selectedCategory()?.id === category.id"
+      (click)="onCategoryChange(category)"
+      [attr.aria-selected]="selectedCategory()?.id === category.id"
+      tabindex="0"
+    >
+      {{ category.name }}
+    </button>
+  }
 </div>
 <app-product-list [products]="products()"/>
