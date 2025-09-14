@@ -1,0 +1,40 @@
+:host {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  /* Remove or increase max-width as needed */
+  max-width: 35%;
+}
+
+input {
+  flex: 1 1 100%;
+  min-width: 0;
+  padding: 0.5rem 1rem;
+  border: 1px solid #d1d5db;
+  border-radius: 4px 0 0 4px;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.2s;
+
+  &:focus {
+    border-color: #0078d4;
+    background: #f3f6fa;
+  }
+}
+
+button {
+  padding: 0.5rem 1.25rem;
+  border: none;
+  border-radius: 0 4px 4px 0;
+  background: #0078d4;
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.2s;
+
+  &:hover,
+  &:focus {
+    background: #005fa3;
+  }
+}

@@ -17,4 +17,7 @@ export class ProductService {
   searchProducts(searchTerm: string) {
     return this.http.get<Array<Product>>(`${this.baseUrl}/products/search?searchTerm=${searchTerm}`)
   }
+  getProductsByMerchantAndCategory(id: number, category: string){
+    return this.http.get<Array<Product>>(`${this.baseUrl}/products/merchant/${id}?category=${category}`);
+  }
 }

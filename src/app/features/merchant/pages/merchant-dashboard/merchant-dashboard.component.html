@@ -1,1 +1,9 @@
+<div>
+  <label for="category-select">Category:</label>
+  <select id="category-select" [ngModel]="selectedCategory()" (ngModelChange)="onCategoryChange($event)">
+    @for (category of categories(); track category.id) {
+      <option [ngValue]="category">{{ category.name }}</option>
+    }
+  </select>
+</div>
 <app-product-list [products]="products()"/>
