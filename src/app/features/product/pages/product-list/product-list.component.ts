@@ -4,13 +4,14 @@ import { ProductCardComponent } from "../../../../shared/components/cards/produc
 
 @Component({
   selector: 'app-product-list',
+  standalone: true,
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.scss'],
   imports: [ProductCardComponent]
 })
 export class ProductListComponent{
-  products = input.required<Array<Product>>();
-  productUpdated = output<Product>(); 
+  readonly products = input.required<Product[]>();
+  readonly productUpdated = output<Product>();
 
   onProductUpdate(updatedProduct: Product) {
     this.productUpdated.emit(updatedProduct);
