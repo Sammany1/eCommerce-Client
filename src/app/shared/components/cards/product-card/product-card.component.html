@@ -6,7 +6,7 @@
     {{ message() }}
   </div>
   }
-  
+
   @if (isEditing()) {
   <h1>Edit Product</h1>
   <form [formGroup]="updatedProductForm" (ngSubmit)="onSave()">
@@ -43,6 +43,7 @@
       </button>
     </div>
 
+    <button type="button" class="cancel" (click)="cancelEdit()">Cancel</button>
     <button type="submit" [disabled]="updatedProductForm.invalid">Save</button>
   </form>
   } @else {

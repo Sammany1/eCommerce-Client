@@ -90,7 +90,7 @@ export class ProductCardComponent {
     this.productService.updateProduct(this.product().id, updatedProduct).subscribe({
       next: (updated) => {
         this.productUpdated.emit(updated);
-        this.cancelEdit();
+        this.isEditing.set(false);
         this.message.set('Product updated successfully');
         // clear message after 3s
         setTimeout(() => this.message.set(null), 3000);
@@ -103,6 +103,18 @@ export class ProductCardComponent {
   }
 
   cancelEdit() {
+        this.updatedProductForm.setValue({
+      name: this.product().name,
+      price: this.product().price,
+      status: this.product().status
+    });
+
+    this.updatedProductForm.markAsPristine();
+    this.updatedProductForm.markAsUntouched();
+    this.updatedProductForm.updateValueAndValidity();
+
     this.isEditing.set(false);
+
+    this.message.set(null);
   }
 }

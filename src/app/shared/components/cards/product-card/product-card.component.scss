@@ -27,6 +27,12 @@ $pc-admin-btn-bg: #1e88e5;
 $pc-admin-btn-bg-hover: #1565c0;
 $pc-admin-btn-color: #ffffff;
 
+// cancel / neutral action tokens
+$pc-cancel-bg: #f3f4f6;
+$pc-cancel-bg-hover: #e9eef2;
+$pc-cancel-color: #111827;
+$pc-cancel-border: rgba(0, 0, 0, 0.06);
+
 // Expose CSS custom properties on the root block so runtime overrides are simple
 .product-card {
   /* CSS variables for runtime theming / overrides */
@@ -82,10 +88,13 @@ $pc-admin-btn-color: #ffffff;
     box-shadow: 0 4px 16px var(--pc-shadow);
     transform: translateY(-2px) scale(1.01);
   }
+
   h1 {
     margin: 0 0 0.5rem 0;
-    font-size: 1rem; /* smaller */
-    font-weight: 500; /* less bold */
+    font-size: 1rem;
+    /* smaller */
+    font-weight: 500;
+    /* less bold */
     color: var(--pc-muted-color);
     letter-spacing: 0.01em;
   }
@@ -113,6 +122,37 @@ $pc-admin-btn-color: #ffffff;
     gap: 0.6rem;
   }
 
+  /* layout for save + cancel actions when present */
+  form>.form-actions {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    justify-content: flex-end;
+    width: 100%;
+  }
+
+  /* Cancel / neutral button styling (uses tokens above) */
+  form > button.cancel {
+    padding: 0.45rem 0.9rem;
+    background: $pc-cancel-bg;
+    color: $pc-cancel-color;
+    border: 1px solid $pc-cancel-border;
+    border-radius: 0.45rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background var(--pc-transition), transform 0.08s, box-shadow 0.12s;
+    align-self: flex-start;
+  }
+
+  form > button.cancel:hover {
+    background: $pc-cancel-bg-hover;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.06);
+  }
+
+  form > button.cancel:focus-visible {
+    outline: 3px solid color-mix(in srgb, var(--pc-admin-btn-bg) 12%, transparent);
+  }
+
   label {
     display: flex;
     flex-direction: column;
@@ -138,6 +178,7 @@ $pc-admin-btn-color: #ffffff;
   input[type="number"] {
     -moz-appearance: textfield;
   }
+
   input[type="number"]::-webkit-inner-spin-button,
   input[type="number"]::-webkit-outer-spin-button {
     -webkit-appearance: none;
@@ -150,7 +191,7 @@ $pc-admin-btn-color: #ffffff;
     box-shadow: 0 6px 16px color-mix(in srgb, var(--pc-admin-btn-bg) 8%, transparent);
   }
 
-  form > button[type="submit"] {
+  form>button[type="submit"] {
     align-self: flex-end;
     padding: 0.45rem 0.9rem;
     background: var(--pc-admin-btn-bg);
@@ -162,7 +203,7 @@ $pc-admin-btn-color: #ffffff;
     transition: background var(--pc-transition), transform 0.08s, box-shadow 0.12s;
   }
 
-  form > button[type="submit"]:disabled {
+  form>button[type="submit"]:disabled {
     opacity: 0.6;
     cursor: not-allowed;
   }
