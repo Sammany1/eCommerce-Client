@@ -2,10 +2,11 @@ import { Component, ChangeDetectionStrategy, computed, effect, inject, input, On
 import { ProductListComponent } from "../../../product/pages/product-list/product-list.component";
 import { ProductService } from '../../../../core/services/product/product.service';
 import { catchError } from 'rxjs';
-import { Product } from '../../../../core/models/product.model';
+import { Product, ProductFlags } from '../../../../core/models/product.model';
 import { FormsModule } from '@angular/forms';
 import { MerchantService } from '../../../../core/services/merchant/merchant.service';
 import { Category } from '../../../../core/models/category.model';
+import { AuthService } from '../../../../core/services/auth/auth.service';
 
 @Component({
   selector: 'app-merchant-dashboard',
@@ -17,24 +18,24 @@ import { Category } from '../../../../core/models/category.model';
 })
 export class MerchantDashboardComponent implements OnInit {
   id = input.required<string>();
+  productService = inject(ProductService);
+  merchantService = inject(MerchantService);
+  authService = inject(AuthService);
+
   merchantId = computed(() => Number(this.id()));
   products = signal<Array<Product>>([]);
   categories = signal<Array<Category>>([]);
   selectedCategory = signal<Category | null>(null);
 
-  productService = inject(ProductService);
-  merchantService = inject(MerchantService);
-
   ngOnInit() {
     this.merchantService
       .getCategories(this.merchantId())
-      .pipe(catchError(err => { console.log(err); throw err; }))
       .subscribe(categories => {
         this.categories.set(categories);
         console.log(categories);
         if (categories.length) {
           this.selectedCategory.set(categories[0]);
-          console.log(this.selectedCategory);
+          console.log(this.selectedCategory());
           this.loadProducts();
         }
       });
@@ -45,13 +46,26 @@ export class MerchantDashboardComponent implements OnInit {
     if (category) {
       this.productService
         .getProductsByMerchantAndCategory(this.merchantId(), category.name)
-        .pipe(catchError(err => { console.log(err); throw err; }))
-        .subscribe(products => this.products.set(products));
+        .subscribe(products => {
+          if (this.authService.isAdmin()) {
+            this.products.set(products);
+          }
+          else {
+            this.products.set(products.filter(p => p.status & ProductFlags.Active));
+          }
+          console.log(this.products());
+        });
     }
   }
 
   onCategoryChange(category: Category) {
     this.selectedCategory.set(category);
     this.loadProducts();
+  }
+
+  handleProductUpdate(updatedProduct: Product) {
+    this.products.update(currentProducts =>
+      currentProducts.map(p => p.id === updatedProduct.id ? updatedProduct : p)
+    );
   }
 }

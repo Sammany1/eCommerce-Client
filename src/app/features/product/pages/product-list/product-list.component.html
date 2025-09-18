@@ -1,5 +1,5 @@
 <ul>
   @for (product of products(); track product.id) {
-    <app-product-card [product]="product"/>
+    <app-product-card [product]="product" (productUpdated)="onProductUpdate($event)"/>
   }
 </ul>

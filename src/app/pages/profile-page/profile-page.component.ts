@@ -20,11 +20,7 @@ export class ProfilePageComponent implements OnInit {
   ngOnInit() {
     this.userService
     .getProfile()
-    .pipe(
-      catchError(err => {
-        throw err;
-      })
-    ).subscribe(user => {
+    .subscribe(user => {
       this.user.set(user);
     })
   }

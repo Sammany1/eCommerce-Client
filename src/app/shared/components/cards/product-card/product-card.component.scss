@@ -1,33 +1,177 @@
+// Theme / tokens (compile-time)
+$pc-border-default: #43a047;
+$pc-border-hover: #1b5e20;
+$pc-shadow: rgba(67, 160, 71, 0.08);
+$pc-bg: #fff;
+$pc-text: #222;
+$pc-radius: 0.75rem;
+
+$pc-badge-padding: 0.18em 0.9em;
+$pc-badge-font-size: 0.95rem;
+$pc-badge-weight: 600;
+$pc-badge-radius: 1em;
+$pc-transition: 0.2s;
+
+// Semantic colors (compile-time defaults)
+$pc-success-bg: #e8f5e9;
+$pc-success-color: #388e3c;
+
+$pc-muted-bg: #f5f5f5;
+$pc-muted-color: #757575;
+
+$pc-danger-bg: #ffebee;
+$pc-danger-color: #d32f2f;
+
+// admin action button
+$pc-admin-btn-bg: #1e88e5;
+$pc-admin-btn-bg-hover: #1565c0;
+$pc-admin-btn-color: #ffffff;
+
+// Expose CSS custom properties on the root block so runtime overrides are simple
 .product-card {
+  /* CSS variables for runtime theming / overrides */
+  --pc-border-default: #{$pc-border-default};
+  --pc-border-hover: #{$pc-border-hover};
+  --pc-bg: #{$pc-bg};
+  --pc-text: #{$pc-text};
+  --pc-shadow: #{$pc-shadow};
+  --pc-radius: #{$pc-radius};
+
+  --pc-badge-padding: #{$pc-badge-padding};
+  --pc-badge-font-size: #{$pc-badge-font-size};
+  --pc-badge-weight: #{$pc-badge-weight};
+  --pc-badge-radius: #{$pc-badge-radius};
+  --pc-transition: #{$pc-transition};
+
+  --pc-success-bg: #{$pc-success-bg};
+  --pc-success-color: #{$pc-success-color};
+
+  --pc-muted-bg: #{$pc-muted-bg};
+  --pc-muted-color: #{$pc-muted-color};
+
+  --pc-danger-bg: #{$pc-danger-bg};
+  --pc-danger-color: #{$pc-danger-color};
+
+  --pc-admin-btn-bg: #{$pc-admin-btn-bg};
+  --pc-admin-btn-bg-hover: #{$pc-admin-btn-bg-hover};
+  --pc-admin-btn-color: #{$pc-admin-btn-color};
+
+  --pc-border-default: #{$pc-border-default};
+
   display: flex;
+  position: relative; // needed for toast positioning
   flex-direction: column;
   align-items: flex-start;
   width: 100%;
   max-width: 320px;
   padding: 1.5rem 1.25rem;
-  border: 2px solid #43a047;
-  border-radius: 0.75rem;
-  background: #fff;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  border: 2px solid var(--pc-border-default);
+  border-radius: var(--pc-radius);
+  background: var(--pc-bg);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
   cursor: pointer;
-  transition: border-color 0.2s, box-shadow 0.2s, transform 0.1s;
+  transition: border-color var(--pc-transition), box-shadow var(--pc-transition), transform 0.1s;
   outline: none;
-  color: #222;
+  color: var(--pc-text);
   font: inherit;
   text-align: left;
 
   &:hover,
   &:focus-visible {
-    border: 2px solid #1b5e20;
-    box-shadow: 0 4px 16px rgba(67, 160, 71, 0.08);
+    border: 2px solid var(--pc-border-hover);
+    box-shadow: 0 4px 16px var(--pc-shadow);
     transform: translateY(-2px) scale(1.01);
+  }
+  h1 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1rem; /* smaller */
+    font-weight: 500; /* less bold */
+    color: var(--pc-muted-color);
+    letter-spacing: 0.01em;
+  }
+
+  .toast {
+    position: absolute;
+    top: -0.75rem;
+    right: -0.75rem;
+    transform: translateY(-50%);
+    background: var(--pc-admin-btn-bg);
+    color: var(--pc-admin-btn-color);
+    padding: 0.4rem 0.75rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    font-size: 0.9rem;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+    z-index: 10;
+    white-space: nowrap;
+  }
+
+  form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    font-size: 0.95rem;
+    color: var(--pc-text);
+  }
+
+  input[type="text"],
+  input[type="number"] {
+    width: 100%;
+    padding: 0.5rem 0.65rem;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    background: var(--pc-bg);
+    color: var(--pc-text);
+    border-radius: 0.5rem;
+    font-size: 0.95rem;
+    transition: border-color var(--pc-transition), box-shadow var(--pc-transition);
+    box-shadow: none;
+  }
+
+  /* Remove default number input spinners for consistent appearance */
+  input[type="number"] {
+    -moz-appearance: textfield;
+  }
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  input:focus {
+    outline: none;
+    border-color: var(--pc-admin-btn-bg);
+    box-shadow: 0 6px 16px color-mix(in srgb, var(--pc-admin-btn-bg) 8%, transparent);
+  }
+
+  form > button[type="submit"] {
+    align-self: flex-end;
+    padding: 0.45rem 0.9rem;
+    background: var(--pc-admin-btn-bg);
+    color: var(--pc-admin-btn-color);
+    border: none;
+    border-radius: 0.45rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background var(--pc-transition), transform 0.08s, box-shadow 0.12s;
+  }
+
+  form > button[type="submit"]:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
   }
 
   h2 {
     margin: 0 0 0.5rem 0;
     font-size: 1.25rem;
     font-weight: 600;
-    color: #222;
+    color: var(--pc-text);
     letter-spacing: 0.01em;
   }
 
@@ -42,23 +186,173 @@
   .product-price {
     font-size: 1.1rem;
     font-weight: 500;
-    color: #388e3c;
+    color: var(--pc-success-color);
   }
 
-  .product-status {
-    font-size: 0.95rem;
-    font-weight: 500;
-    padding: 0.15em 0.75em;
-    border-radius: 1em;
-    background: #f5f5f5;
-    color: #757575;
+  // badge base (shared between card-status-row and product-details)
+  %pc-badge-base {
+    display: inline-block;
+    padding: var(--pc-badge-padding);
+    font-size: var(--pc-badge-font-size);
+    font-weight: var(--pc-badge-weight);
+    border-radius: var(--pc-badge-radius);
+    transition: background var(--pc-transition), color var(--pc-transition);
+  }
 
-    &.active {
-      font-weight: 600;
+  .product-details {
+    .product-badge {
+      @extend %pc-badge-base;
+      background: var(--pc-success-bg);
+      color: var(--pc-success-color);
     }
-    &.in-stock {
-      background: #e8f5e9;
-      color: #388e3c;
+  }
+
+  .card-status-row {
+    width: 100%;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+
+    .product-badge {
+      @extend %pc-badge-base;
+      background: var(--pc-success-bg);
+      color: var(--pc-success-color);
+    }
+  }
+
+  /* Modifier classes: these target badges inside the same .product-card */
+  &.out-of-stock {
+    --pc-border-default: var(--pc-danger-color);
+    --pc-border-hover: color-mix(in srgb, var(--pc-danger-color) 20%, black 10%);
+
+    .product-details .product-badge {
+      background: var(--pc-danger-bg);
+      color: var(--pc-danger-color);
+
+    }
+  }
+
+  &.not-active {
+    --pc-border-default: var(--pc-muted-color);
+    --pc-danger-color: var(--pc-muted-color);
+    --pc-success-color: var(--pc-muted-color);
+    --pc-border-hover: color-mix(in srgb, var(--pc-danger-color) 20%, black 10%);
+
+    .card-status-row .product-badge {
+      background: var(--pc-muted-bg);
+      color: var(--pc-muted-color);
+    }
+  }
+
+  /* Status toggle buttons used in edit form */
+  .status-toggle {
+    display: inline-flex;
+    gap: 0.5rem;
+    align-items: center;
+    margin: 0.5rem 0;
+
+    button {
+      appearance: none;
+      border: 1px solid transparent;
+      background: var(--pc-muted-bg);
+      color: var(--pc-muted-color);
+      padding: 0.35rem 0.65rem;
+      border-radius: 0.45rem;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: var(--pc-transition), color var(--pc-transition), transform 0.08s,
+        box-shadow 0.12s, border-color var(--pc-transition);
+      min-width: 86px;
+      text-align: center;
+    }
+
+    &--top {
+      margin-bottom: 0.75rem;
+      width: 100%;
+    }
+
+    &--bottom {
+      margin-top: 0.75rem;
+    }
+
+    button:hover,
+    button:focus {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+      outline: none;
+    }
+
+    /* selected state — highlight using admin color tokens for clear affordance */
+    button.selected,
+    button[aria-pressed="true"] {
+      background: var(--pc-admin-btn-bg);
+      color: var(--pc-admin-btn-color);
+      border-color: transparent;
+      box-shadow: 0 6px 14px rgba(30, 136, 229, 0.12);
+    }
+
+    /* make Active / In Stock (first button) appear green when selected,
+       and Not Active / Out of Stock (second button) appear red when selected.
+       Target both .selected class and aria-pressed for accessibility. */
+    &--top button.selected:first-child,
+    &--bottom button.selected:first-child,
+    &--top button[aria-pressed="true"]:first-child,
+    &--bottom button[aria-pressed="true"]:first-child {
+      background: var(--pc-success-color);
+      color: #fff;
+      border-color: transparent;
+      box-shadow: 0 6px 14px color-mix(in srgb, var(--pc-success-color) 18%, black 6%);
+    }
+
+    &--top button.selected:last-child,
+    &--bottom button.selected:last-child,
+    &--top button[aria-pressed="true"]:last-child,
+    &--bottom button[aria-pressed="true"]:last-child {
+      background: var(--pc-danger-color);
+      color: #fff;
+      border-color: transparent;
+      box-shadow: 0 6px 14px color-mix(in srgb, var(--pc-danger-color) 18%, black 6%);
+    }
+
+    button:focus-visible {
+      outline: 3px solid color-mix(in srgb, var(--pc-admin-btn-bg) 14%, transparent);
+    }
+
+    button[disabled] {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+  }
+
+
+  .admin-actions {
+    margin-top: 0.75rem;
+
+    .update-btn {
+      appearance: none;
+      border: none;
+      background: var(--pc-admin-btn-bg);
+      color: var(--pc-admin-btn-color);
+      padding: 0.45rem 0.9rem;
+      border-radius: 0.45rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--pc-transition), transform 0.08s, box-shadow 0.12s;
+      box-shadow: 0 1px 0 rgba(0, 0, 0, 0.04);
+    }
+
+    .update-btn:hover,
+    .update-btn:focus {
+      background: var(--pc-admin-btn-bg-hover);
+      outline: none;
+      box-shadow: 0 4px 12px rgba(21, 101, 192, 0.12);
+    }
+
+    .update-btn:active {
+      transform: translateY(1px);
     }
   }
 }

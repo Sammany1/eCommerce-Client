@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { API_BASE_URL } from '../../tokens/api-base-url.token';
-import { Product } from '../../models/product.model';
+import { Product, UpdatedProduct } from '../../models/product.model';
 
 @Injectable({
   providedIn: 'root'
@@ -19,5 +19,9 @@ export class ProductService {
   }
   getProductsByMerchantAndCategory(id: number, category: string){
     return this.http.get<Array<Product>>(`${this.baseUrl}/products/merchant/${id}?category=${category}`);
+  }
+
+  updateProduct(id: number, updateProduct: UpdatedProduct){
+    return this.http.put<Product>(`${this.baseUrl}/products/${id}`, updateProduct);
   }
 }

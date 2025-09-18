@@ -1,8 +1,9 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { MerchantListComponent } from "../../features/merchant/pages/merchant-list/merchant-list.component";
 import { MerchantService } from '../../core/services/merchant/merchant.service';
-import { catchError } from 'rxjs';
+import { catchError, single } from 'rxjs';
 import { Merchant } from '../../core/models/merchant.model';
+import { AuthService } from '../../core/services/auth/auth.service';
 
 @Component({
   selector: 'app-dashboard-page',
@@ -12,19 +13,25 @@ import { Merchant } from '../../core/models/merchant.model';
 })
 export class DashboardPageComponent implements OnInit {
   merchantService = inject(MerchantService);
+  authService = inject(AuthService);
   merchants = signal<Array<Merchant>>([]);
-  
+
+
   ngOnInit(): void {
-    this.merchantService
-    .getAllMerchants()
-    .pipe(
-      catchError((err) => {
-        console.log(err);
-        throw err;
-      })
-    ).subscribe((merchants) => {
-      this.merchants.set(merchants);
-    })
+    if (this.authService.isAdmin()) {
+      this.merchantService
+        .getAllAdminMerchants(this.authService.userId())
+        .subscribe((merchants) => {
+          this.merchants.set(merchants);
+        })
+    }
+    else {
+      this.merchantService
+        .getAllMerchants()
+        .subscribe((merchants) => {
+          this.merchants.set(merchants);
+        })
+    }
   }
 
 }

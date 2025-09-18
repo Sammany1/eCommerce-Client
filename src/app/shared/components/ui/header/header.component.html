@@ -2,9 +2,14 @@
   <span routerLink="/dashboard">{{ title() }}</span>
   <div class="header-center">
     @if (showSearch()) {
-      <app-search/>
+    <app-search />
     }
   </div>
+  @if (authSerivec.isAdmin()) {
+  <div class="admin-badge">
+    <strong>ADMIN</strong>
+  </div>
+  }
   <nav>
     <ul>
       @if (showRegister()) {

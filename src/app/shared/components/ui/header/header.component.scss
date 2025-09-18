@@ -7,12 +7,13 @@ header {
   background-color: #333;
   color: white;
 
-  > span {
+  >span {
     font-size: 1.5rem;
     font-weight: 600;
     cursor: pointer;
     margin-right: 2rem;
     flex-shrink: 0;
+
     &:hover {
       color: #bbb;
     }
@@ -23,6 +24,27 @@ header {
     align-items: center;
     flex: 1 1 auto;
     gap: 2rem;
+  }
+
+  .admin-badge {
+    background: #fff0f0;
+    border: 2px solid #e53935;
+    color: #e53935;
+    font-weight: bold;
+    padding: 0.25rem 1rem;
+    border-radius: 0.5rem;
+    margin-left: 1.5rem;
+    margin-right: 2rem;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    height: 2.2rem;
+
+    strong {
+      color: #e53935;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+    }
   }
 
   nav {
@@ -39,6 +61,7 @@ header {
       li {
         cursor: pointer;
         font-size: 1rem;
+
         &:hover {
           color: #bbb;
         }

@@ -1,6 +1,7 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { SearchComponent } from '../search/search.component';
+import { AuthService } from '../../../../core/services/auth/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -11,6 +12,7 @@ import { SearchComponent } from '../search/search.component';
 export class HeaderComponent {
   title = signal('eCommerce');
   router = inject(Router);
+  authSerivec = inject(AuthService);
 
   currentUrl = signal(this.router.url);
 

@@ -12,3 +12,11 @@ export interface Product {
   merchantId: number;
   categoryId: number;
 }
+
+export interface UpdatedProduct{
+  id: number;
+  name: string;
+  price: number;
+  status: ProductFlags;
+  categoryId: number;
+}

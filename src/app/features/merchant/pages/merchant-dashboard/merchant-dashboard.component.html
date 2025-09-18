@@ -12,4 +12,4 @@
     </button>
   }
 </div>
-<app-product-list [products]="products()"/>
+<app-product-list [products]="products()" (productUpdated)="handleProductUpdate($event)"/>

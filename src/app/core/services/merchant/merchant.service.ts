@@ -15,6 +15,10 @@ export class MerchantService {
     return this.http.get<Array<Merchant>>(`${this.baseUrl}/merchants`);
   }
 
+  getAllAdminMerchants(id: number){
+    return this.http.get<Array<Merchant>>(`${this.baseUrl}/merchants/${id}`);
+  }
+
   searchMerchants(searchTerm: string){
     return this.http.get<Array<Merchant>>(`${this.baseUrl}/merchants/search?name=${searchTerm}`);
   }

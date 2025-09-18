@@ -33,22 +33,13 @@ export class SearchResultPageComponent implements OnInit{
   search() {
     this.merchantService
     .searchMerchants(this.searchTerm())
-    .pipe(
-      catchError((err) => {
-        throw err;
-      }
-      )
-    ).subscribe((merchants) => {
+    .subscribe((merchants) => {
       this.merchants.set(merchants);
     });
 
     this.productSercive
     .searchProducts(this.searchTerm())
-    .pipe(
-      catchError((err) => {
-        throw err;
-      })
-    ).subscribe((products) => {
+    .subscribe((products) => {
       this.products.set(products);
     })
   }
